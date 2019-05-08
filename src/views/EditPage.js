@@ -79,10 +79,10 @@ class EditPage extends React.Component {
             <EditPageWrapper>
                 <nav><h1>My Rich Text Editor</h1></nav>
                 <ButtonsWrapper>
-                    <UIButton content='B' onButtonClick={this.onBoldClick} />
-                    <UIButton content='U' onButtonClick={this.onUnderlineClick} />
-                    <UIButton content='I' onButtonClick={this.onItalicClick} />
-                    <UIButton content='H' onButtonClick={this.onHighlightClick} />
+                    <UIButton content={<span style={{ fontWeight: "bold" }}>B</span>} onButtonClick={this.onBoldClick} />
+                    <UIButton content={<span style={{ textDecoration: "underline" }}>U</span>} onButtonClick={this.onUnderlineClick} />
+                    <UIButton content={<span style={{ fontStyle: "italic" }}>I</span>} onButtonClick={this.onItalicClick} />
+                    <UIButton content={<span style={{ background: "yellow", color: "black" }}>H</span>} onButtonClick={this.onHighlightClick} />
                 </ButtonsWrapper>
                 <section>
                     <MyEditor 

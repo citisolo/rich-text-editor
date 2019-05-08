@@ -11,7 +11,7 @@ const EditorWrapper = styled.div`
     // background: rgb(29, 31, 39);
     // color: white;
     height: 400px;
-    margin: 1em;
+    margin-top: 1em;
     border-style: dashed;
     border-color: black;
 `;
@@ -32,6 +32,7 @@ const MyEditor = ({ editorState, onChange, handleKeyCommand, plugins}) => {
                     onChange={onChange} 
                     handleKeyCommand={handleKeyCommand}
                     plugins={plugins}
+                    textAlignment='left'
                 />
         </EditorWrapper>
     )

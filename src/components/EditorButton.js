@@ -15,7 +15,7 @@ const ButtonWrapper = styled.div`
 const UIButton = ({ content, onButtonClick }) => {
     return (
         <ButtonWrapper>
-            <Button secondary content={content} onClick={onButtonClick}/>
+            <Button primary content={content} onClick={onButtonClick}/>
         </ButtonWrapper>
     );
 }
