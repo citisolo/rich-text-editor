@@ -14,6 +14,7 @@ const EditorWrapper = styled.div`
     margin-top: 1em;
     border-style: dashed;
     border-color: black;
+    font-size: large;
 `;
 
 const ButtonWrapper = styled.div`

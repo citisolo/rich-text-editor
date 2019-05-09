@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { EditorState, RichUtils} from 'draft-js';
 
 import createHighlightPlugin from '../components/plugins/highlightPlugin';
+import addLinkPlugin from '../components/plugins/addLinkPlugin';
 
 //import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import MyEditor from '../components/Editor';
@@ -17,7 +18,7 @@ const EditPageWrapper = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
-    j
+
 `;
 
 class EditPage extends React.Component {
@@ -29,6 +30,7 @@ class EditPage extends React.Component {
 
         this.plugins = [
             highlightPlugin,
+            addLinkPlugin,
         ];
     }
 
