@@ -10,6 +10,11 @@ import addLinkPlugin from '../components/plugins/addLinkPlugin';
 import MyEditor from '../components/Editor';
 import UIButton from '../components/EditorButton';
 
+import BlockStyleToolbar, { getBlockStyle } from "../components/blockStyles/BlockStyleToolbar";
+
+
+
+
 
 const highlightPlugin = createHighlightPlugin();
 
@@ -96,19 +101,23 @@ class EditPage extends React.Component {
 
     }
     
+    toggleBlockType = (blockType) => {
+        this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+    }
+    
+    
     render(){
         return (
             <EditPageWrapper>
                 <nav><h1>My Rich Text Editor</h1></nav>
-                <ButtonsWrapper>
-                    <UIButton content={<span style={{ fontWeight: "bold" }}>B</span>} onButtonClick={this.onBoldClick} />
-                    <UIButton content={<span style={{ textDecoration: "underline" }}>U</span>} onButtonClick={this.onUnderlineClick} />
-                    <UIButton content={<span style={{ fontStyle: "italic" }}>I</span>} onButtonClick={this.onItalicClick} />
-                    <UIButton content={<span style={{ background: "yellow", color: "black" }}>H</span>} onButtonClick={this.onHighlightClick} />
-                    <UIButton content={<span style={{ fontWeight: "bold" }}>@</span>} onButtonClick={this.onAddLink} />
-                </ButtonsWrapper>
+
+                <BlockStyleToolbar
+                  editorState={this.state.editorState}
+                  onToggle={this.toggleBlockType}
+                />
                 <section>
                     <MyEditor 
+                        blockStyleFn={getBlockStyle}
                         editorState={this.state.editorState}
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}

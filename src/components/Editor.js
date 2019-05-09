@@ -25,15 +25,16 @@ const MenuWrapper = styled.div`
     display: flex;
 `;
 
-const MyEditor = ({ editorState, onChange, handleKeyCommand, plugins}) => {
+const MyEditor = ({ editorState, onChange, handleKeyCommand, plugins, blockStyleFn}) => {
     return (
         <EditorWrapper>
             <Editor 
-                    editorState={editorState} 
-                    onChange={onChange} 
-                    handleKeyCommand={handleKeyCommand}
-                    plugins={plugins}
-                    textAlignment='left'
+                blockStyleFn={blockStyleFn}     
+                editorState={editorState} 
+                onChange={onChange} 
+                handleKeyCommand={handleKeyCommand}
+                plugins={plugins}
+                textAlignment='left'
                 />
         </EditorWrapper>
     )
