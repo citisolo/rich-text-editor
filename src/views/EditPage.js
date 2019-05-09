@@ -75,6 +75,26 @@ class EditPage extends React.Component {
 			RichUtils.toggleInlineStyle(this.state.editorState, "HIGHLIGHT")
 		);
     };
+
+    onAddLink = () => {
+        const editorState = this.state.editorState;
+        const selection = editorState.getSelection();
+        const link = window.prompt('Paste the link -');
+
+        if (!link) {
+            this.onChange(RichUtils.toggleLink(editorState, selection, null))
+            return 'handled';
+        }
+
+        const content = editorState.getCurrentContent();
+        const contentWithEntity = content.createEntity('LINK', 'MUTABLE', {url: link});
+
+        const newEditorState = EditorState.push(editorState, contentWithEntity, 'create-entity');
+
+        const entityKey = contentWithEntity.getLastCreatedEntityKey();
+        this.onChange(RichUtils.toggleLink(newEditorState, selection, entityKey));
+
+    }
     
     render(){
         return (
@@ -85,6 +105,7 @@ class EditPage extends React.Component {
                     <UIButton content={<span style={{ textDecoration: "underline" }}>U</span>} onButtonClick={this.onUnderlineClick} />
                     <UIButton content={<span style={{ fontStyle: "italic" }}>I</span>} onButtonClick={this.onItalicClick} />
                     <UIButton content={<span style={{ background: "yellow", color: "black" }}>H</span>} onButtonClick={this.onHighlightClick} />
+                    <UIButton content={<span style={{ fontWeight: "bold" }}>@</span>} onButtonClick={this.onAddLink} />
                 </ButtonsWrapper>
                 <section>
                     <MyEditor 
