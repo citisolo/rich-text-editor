@@ -155,6 +155,7 @@ class EditPage extends React.Component {
                     <UIButton content={<span style={{ textDecoration: "underline" }}>U</span>} onButtonClick={this.onUnderlineClick} />
                     <UIButton content={<span style={{ fontStyle: "italic" }}>I</span>} onButtonClick={this.onItalicClick} />
                     <UIButton content={<span style={{ background: "yellow", color: "black" }}>H</span>} onButtonClick={this.onHighlightClick} />
+                    <UIButton content={<i className="material-icons">image</i>} onButtonClick={this.onAddImage} />
                 </ButtonsWrapper>
                 <section>
                     <MyEditor 
