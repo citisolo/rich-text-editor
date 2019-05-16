@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Rich text editor
 
-this is an example of a rich text editor developed using draftjs for react. The rich text editor includes features such as ;
+an example of a rich text editor developed using draftjs for react. The rich text editor includes features such as ;
   - Highlighting text
   - Underline
   - Codeblocks
