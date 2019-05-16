@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { EditorState, RichUtils} from 'draft-js';
+import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
 
 import createHighlightPlugin from '../components/plugins/highlightPlugin';
 import addLinkPlugin from '../components/plugins/addLinkPlugin';
@@ -9,6 +9,8 @@ import addLinkPlugin from '../components/plugins/addLinkPlugin';
 //import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import MyEditor from '../components/Editor';
 import UIButton from '../components/EditorButton';
+
+import { mediaBlockRenderer } from "../entities/mediaBlockRenderer";
 
 import BlockStyleToolbar, { getBlockStyle } from "../components/blockStyles/BlockStyleToolbar";
 
@@ -23,7 +25,7 @@ const EditPageWrapper = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
-
+    display:flex;
 `;
 
 class EditPage extends React.Component {
@@ -101,6 +103,40 @@ class EditPage extends React.Component {
 
     }
     
+    onAddImage = (e) => {
+        e.preventDefault();
+        const editorState = this.state.editorState;
+        const urlValue = window.prompt("Paste Image Link");
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity(
+            "image",
+            "IMMUTABLE",
+            { src: urlValue }
+        );
+
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newEditorState = EditorState.set(
+            editorState,
+            { currentContent: contentStateWithEntity},
+            "create-entity"
+        );
+        this.setState(
+            {
+                editorState: AtomicBlockUtils.insertAtomicBlock(
+                    newEditorState,
+                    entityKey,
+                    " "
+                )
+            },
+            () => {
+                setTimeout(() => this.focus(), 0)
+            }
+        );
+
+
+
+    }
+
     toggleBlockType = (blockType) => {
         this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
     }
@@ -110,11 +146,16 @@ class EditPage extends React.Component {
         return (
             <EditPageWrapper>
                 <nav><h1>My Rich Text Editor</h1></nav>
-
-                <BlockStyleToolbar
-                  editorState={this.state.editorState}
-                  onToggle={this.toggleBlockType}
-                />
+                <ButtonsWrapper>
+                    <BlockStyleToolbar
+                    editorState={this.state.editorState}
+                    onToggle={this.toggleBlockType}
+                    />
+                    <UIButton content={<span style={{ fontWeight: "bold" }}>B</span>} onButtonClick={this.onBoldClick} />
+                    <UIButton content={<span style={{ textDecoration: "underline" }}>U</span>} onButtonClick={this.onUnderlineClick} />
+                    <UIButton content={<span style={{ fontStyle: "italic" }}>I</span>} onButtonClick={this.onItalicClick} />
+                    <UIButton content={<span style={{ background: "yellow", color: "black" }}>H</span>} onButtonClick={this.onHighlightClick} />
+                </ButtonsWrapper>
                 <section>
                     <MyEditor 
                         blockStyleFn={getBlockStyle}
@@ -122,6 +163,7 @@ class EditPage extends React.Component {
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         plugins={this.plugins}
+                        blockRendererFn={mediaBlockRenderer}
                     >
                     </MyEditor>
                 </section>

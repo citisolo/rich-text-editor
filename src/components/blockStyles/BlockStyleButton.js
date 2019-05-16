@@ -1,4 +1,7 @@
 import React from "react"
+import UIButton from "../EditorButton";
+
+
 class BlockStyleButton extends React.Component {
 onToggle = (e) => {
     e.preventDefault()
@@ -10,10 +13,15 @@ render() {
       className += " RichEditor-activeButton"
     }
 return (
-        <span className={className} onClick={this.onToggle}>
-        {this.props.label}
-        </span>
+      <UIButton 
+        className={className} 
+        onButtonClick={this.onToggle} 
+        content={this.props.label}>
+      </UIButton>
+
     );
   }
 }
+
+
 export default BlockStyleButton
